@@ -3,12 +3,9 @@
 <head>
     <meta charset="utf-8">
     <title>My Live2D Stream</title>
-    <script src="https://live2d.com"></script>
-    <script src="https://cloudflare.com"></script>
-    <script>
-        window.Live2DCubismCore = window.Live2DCubismCore || {};
-    </script>
-    <script src="https://jsdelivr.net"></script>
+    <script src="./live2dcubismcore.js"></script>
+    <script src="./pixi.min.js"></script>
+    <script src="./pixi-live2d-display.js"></script>
     <style>
         body { margin: 0; background-color: transparent; overflow: hidden; }
         canvas { width: 100vw; height: 100vh; display: block; }
@@ -33,7 +30,7 @@
             try {
                 const app = new PIXI.Application({ 
                     view: canvasElement, 
-                    transparent: true,
+                    backgroundAlpha: 0,
                     resizeTo: window,   
                     autoStart: true 
                 });
