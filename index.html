@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8">
     <title>My Live2D Stream</title>
-    <script src="./pixi.min.js"></script>
-    <script src="./index.min.js"></script>
-    <script src="./cubism4.min.js"></script>
+    <script src="https://cloudflare.com"></script>
+    <script src="https://unpkg.com"></script>
+    <script src="https://unpkg.com"></script>
     <style>
         body { margin: 0; background-color: transparent; overflow: hidden; }
         canvas { width: 100vw; height: 100vh; display: block; }
@@ -14,20 +14,27 @@
 <body>
     <canvas id="live2d-canvas"></canvas>
     <script>
-        window.addEventListener('DOMContentLoaded', async () => {
-            if (typeof PIXI === 'undefined' || !PIXI.live2d) {
-                console.error("Library load failed.");
+        window.addEventListener('load', async () => {
+            const canvasElement = document.getElementById('live2d-canvas');
+            
+            if (!canvasElement) {
+                console.error("Canvas element not found!");
                 return;
             }
 
-            const app = new PIXI.Application({ 
-                view: document.getElementById('live2d-canvas'), 
-                backgroundAlpha: 0, 
-                resizeTo: window,   
-                autoStart: true 
-            });
+            if (typeof PIXI === 'undefined' || !PIXI.live2d) {
+                console.error("PIXI library load failed.");
+                return;
+            }
 
             try {
+                const app = new PIXI.Application({ 
+                    view: canvasElement, 
+                    backgroundAlpha: 0, 
+                    resizeTo: window,   
+                    autoStart: true 
+                });
+
                 const modelPath = './models/apple.model3.json';
                 const model = await PIXI.live2d.Live2DModel.from(modelPath);
                 
