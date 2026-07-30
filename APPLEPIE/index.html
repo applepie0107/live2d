@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>My Live2D Stream</title>
+    <script src="https://live2d.com"></script>
+    <script src="https://jsdelivr.net"></script>
+    <style>
+        body { margin: 0; background-color: transparent; overflow: hidden; }
+        canvas { width: 100vw; height: 100vh; display: block; }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            new PIXI.live2d.Live2DModel.from('apple.model3.json').then(model => {
+                const app = new PIXI.Application({ view: document.getElementById('canvas'), transparent: true, autoStart: true });
+                app.stage.addChild(model);
+                model.scale.set(0.2); 
+                model.anchor.set(0.5, 0.5);
+                model.position.set(window.innerWidth / 2, window.innerHeight / 2);
+            });
+        });
+    </script>
+</body>
+</html>
