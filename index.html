@@ -1,45 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Live2D Stream</title>
-    <script src="https://cloudflare.com"></script>
-    <script src="https://live2d.com"></script>
-    <script src="https://jsdelivr.net"></script>
     <style>
-        body { margin: 0; background-color: transparent; overflow: hidden; }
-        canvas { width: 100vw; height: 100vh; display: block; }
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #00FF00;
+        }
+        canvas {
+            display: block;
+            width: 100vw;
+            height: 100vh;
+        }
     </style>
+    <script src="pixi.min.js"></script>
+    <script src="https://jsdelivr.net"></script>
+    <script src="https://jsdelivr.net"></script>
 </head>
 <body>
-    <canvas id="live2d-canvas"></canvas>
+
+    <canvas id="canvas"></canvas>
+
     <script>
-        window.addEventListener('DOMContentLoaded', async () => {
-            const app = new PIXI.Application({ 
-                view: document.getElementById('live2d-canvas'), 
-                backgroundAlpha: 0, 
-                resizeTo: window,   
-                autoStart: true 
+        (async function() {
+            const app = new PIXI.Application({
+                view: document.getElementById('canvas'),
+                autoStart: true,
+                resizeTo: window,
+                transparent: true
             });
+
+            const modelUrl = 'apple.model3.json';
 
             try {
-                const modelPath = './models/apple.model3.json';
-                const model = await PIXI.live2d.Live2DModel.from(modelPath);
+                const model = await PIXI.live2d.Live2DModel.from(modelUrl);
                 
                 app.stage.addChild(model);
-                model.scale.set(0.2); 
-                model.anchor.set(0.5, 0.5);
-                model.position.set(window.innerWidth / 2, window.innerHeight / 2);
-            } catch (error) {
-                console.error("Error loading Live2D model:", error);
-            }
-        });
-    </script>
-</body>
-</html>
+                model.scale.set(0.25);
+                model.x = (window.innerWidth - model.width) / 2;
+                model.y = (window.innerHeight - model.height) / 2;
 
-            });
-        });
+                model.on('hit', (hitAreas) => {
+                    if (hitAreas.includes('body')) {
+                        model.motion('tap_body');
+                    }
+                });
+            } catch (error) {
+                console.error("Loading error:", error);
+            }
+        })();
     </script>
+
 </body>
 </html>
