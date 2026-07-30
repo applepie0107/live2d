@@ -7,7 +7,7 @@
     <script src="./pixi.min.js"></script>
     <script src="./pixi-live2d-display.js"></script>
     <style>
-        body { margin: 0; background-color: transparent; overflow: hidden; }
+        body { margin: 0; background-color: #00ff00; overflow: hidden; }
         canvas { width: 100vw; height: 100vh; display: block; }
     </style>
 </head>
@@ -30,7 +30,7 @@
             try {
                 const app = new PIXI.Application({ 
                     view: canvasElement, 
-                    backgroundAlpha: 0,
+                    backgroundColor: 0x00ff00,
                     resizeTo: window,   
                     autoStart: true 
                 });
@@ -54,3 +54,4 @@
     </script>
 </body>
 </html>
+
